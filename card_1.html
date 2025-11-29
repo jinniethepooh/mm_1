@@ -147,13 +147,54 @@
         }
 
         /* Dot adjustment for mobile */
+        /* --- Revised Mobile CSS for Fixed Viewport & Scrolling --- */
         @media (max-width: 639px) {
+            /* 1. Timeline Structure Adjustments */
             .timeline::before {
                 left: 20px;
                 transform: translateX(0);
                 top: 10rem;
                 height: calc(100% - 20rem);
-                /* height: 60%; */
+            }
+            .timeline-dot {
+                left: 20px;
+                transform: translate(-50%, -50%);
+            }
+            
+            /* 2. Enforce Full Viewport Height and Content Flow */
+            #cardContainer {
+                height: 100dvh; /* Fix container to full viewport height */
+                min-height: 100dvh; /* Safety measure */
+            }
+
+            .card-inner, .card-front, .card-back {
+                height: 100%; /* Ensure inner elements fill the container */
+            }
+
+            /* 3. The Critical Fix: Ensure Scroll on the Timeline Content */
+            .card-back {
+                /* Since card-back has overflow-y-scroll, we need to ensure it takes the height */
+                padding-bottom: 0; /* Remove padding that might push content out */
+            }
+            
+            .timeline {
+                /* Timeline content must be allowed to grow beyond the screen */
+                min-height: 100%;
+            }
+
+            /* 4. Adjust body alignment *only* after card is opened */
+            body.timeline-active {
+                overflow-y: hidden; /* Prevent body scroll when the card is open */
+            }
+
+        }
+
+        /* @media (max-width: 639px) {
+            .timeline::before {
+                left: 20px;
+                transform: translateX(0);
+                top: 10rem;
+                height: calc(100% - 20rem);
             }
             .timeline-dot {
                 left: 20px;
@@ -174,7 +215,7 @@
             .timeline.overflow-y-scroll {
                 max-height: calc(100vh - 4rem);
             }
-        }
+        } */
 
         .timeline-image {
             width: 100%;
@@ -878,7 +919,8 @@
                 
                 // 3. Adjust body alignment for scrollable timeline
                 document.body.classList.remove('items-center');
-                document.body.classList.add('items-start'); 
+                document.body.classList.add('items-start');
+                document.body.classList.add('timeline-active');
 
                 // 4. Set up the click listeners for the nested flip cards
                 setupMiniFlipCards();
