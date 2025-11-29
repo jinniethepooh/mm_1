@@ -288,6 +288,7 @@
 <body class="bg-dark-bg min-h-screen flex items-center justify-center p-4 font-sans text-text-main">
 
     <div id="cardContainer" class="card-container w-full mx-auto min-h-screen sm:h-[90vh]">
+    <!-- <div id="cardContainer" class="card-container w-full mx-auto sm:h-[90vh]"> -->
         <div id="cardInner" class="card-inner w-full h-full">
             <div class="card-front shadow-2xl hover:shadow-primary-red/50 transition duration-300">
                 <h1 class="font-display text-4xl sm:text-6xl text-primary-red mb-4 font-bold">
@@ -311,6 +312,8 @@
 
             <!-- Back of the Card (The Timeline Content) -->
             <div class="card-back overflow-y-scroll">
+                <!-- <div class="timeline-wrapper h-full overflow-y-auto"> -->
+                <div class="timeline-wrapper overflow-y-auto">
                 <div class="timeline container w-full mx-auto p-4 sm:p-8">
 
                     <!-- Title Header -->
@@ -718,6 +721,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
 
 
@@ -982,6 +986,30 @@
 
 
 
+        function setTimelineHeight() {
+            const wrapper = document.getElementById('timelineWrapper');
+            const items = wrapper.querySelectorAll('.timeline-item');
+
+            let totalHeight = 0;
+            items.forEach(item => {
+            const style = window.getComputedStyle(item);
+            const marginTop = parseFloat(style.marginTop) || 0;
+            const marginBottom = parseFloat(style.marginBottom) || 0;
+            totalHeight += item.offsetHeight + marginTop + marginBottom;
+            });
+
+            // Optional: add some extra padding
+            const extra = 16; // px
+            const finalHeight = totalHeight + extra;
+
+            // You may want to cap it to viewport:
+            const maxHeight = window.innerHeight * 0.7; // 70vh
+
+            wrapper.style.height = Math.min(finalHeight, maxHeight) + 'px';
+        }
+
+        // Run on load
+        window.addEventListener('load', setTimelineHeight);
 
 
 
