@@ -36,19 +36,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 
         /* Custom Scrollbar for Dark Mode */
-        ::-webkit-scrollbar {
+        
+        /* ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
+        } */
+        /* -webkit-overflow-scrolling: touch;}$$ */
+        /*::-webkit-scrollbar-thumb {
             background: #334155;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
-        }
+        } */
 
         /* --- Custom CSS for Main Card Flip and Hearts --- */
         .card-container {
@@ -224,6 +226,11 @@
             border-radius: 0.75rem;
         }
 
+        .timeline-wrapper {
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .mini-flip-container {
             perspective: 1000px;
         }
@@ -285,10 +292,11 @@
 
     </style>
 </head>
-<body class="bg-dark-bg min-h-screen flex items-center justify-center p-4 font-sans text-text-main">
+<!-- <body class="bg-dark-bg min-h-screen flex items-center justify-center p-4 font-sans text-text-main"> -->
+<body class="bg-dark-bg min-h-screen p-4 flex justify-center font-sans text-text-main overflow-hidden">
 
-    <div id="cardContainer" class="card-container w-full mx-auto min-h-screen sm:h-[90vh]">
-    <!-- <div id="cardContainer" class="card-container w-full mx-auto sm:h-[90vh]"> -->
+    <div id="cardContainer" class="card-container w-full mx-auto sm:h-[90vh]">
+    <!-- <div id="cardContainer" class="card-container w-full max-w-3xl"></div> -->
         <div id="cardInner" class="card-inner w-full h-full">
             <div class="card-front shadow-2xl hover:shadow-primary-red/50 transition duration-300">
                 <h1 class="font-display text-4xl sm:text-6xl text-primary-red mb-4 font-bold">
@@ -312,415 +320,414 @@
 
             <!-- Back of the Card (The Timeline Content) -->
             <div class="card-back overflow-y-scroll">
-                <!-- <div class="timeline-wrapper h-full overflow-y-auto"> -->
                 <div class="timeline-wrapper overflow-y-auto">
-                <div class="timeline container w-full mx-auto p-4 sm:p-8">
+                    <div class="timeline container w-full mx-auto p-4 sm:p-8">
 
-                    <!-- Title Header -->
-                    <header class="text-center mb-16 pt-8">
-                        <h1 class="font-display text-5xl sm:text-6xl text-primary-red mb-3 font-bold">
-                            Our Story
-                        </h1>
-                        <p class="text-xl sm:text-2xl text-secondary-pink">
-                            A journey of our first year in pictures and memories
-                        </p>
-                    </header>
+                        <!-- Title Header -->
+                        <header class="text-center mb-16 pt-8">
+                            <h1 class="font-display text-5xl sm:text-6xl text-primary-red mb-3 font-bold">
+                                Our Story
+                            </h1>
+                            <p class="text-xl sm:text-2xl text-secondary-pink">
+                                A journey of our first year in pictures and memories
+                            </p>
+                        </header>
 
-                    <!-- Timeline Item 1 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-red">Our Beginning</h3>
-                                    <p class="text-sm text-text-muted">October 24, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_1.jpg"
-                                                alt="Memory 1" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-red">Our Beginning</h3>
+                                        <p class="text-sm text-text-muted">October 24, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_1.jpg"
+                                                    alt="Memory 1" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "Well, it took a fair bit of courage for me to match someone… and I'm glad I spent it on you. The one and only :-)"
+                                                </p>
                                             </div>
                                         </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "Well, it took a fair bit of courage for me to match someone… and I'm glad I spent it on you. The one and only :-)"
-                                            </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">First Incident!</h3>
+                                        <p class="text-sm text-text-muted">October 25, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_2.jpg"
+                                                    alt="Memory 2" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "There was a chat outage on CMB, and it made me really nervous. I didn't want you to think I wasn't interested in you, because I really still am!"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-pink">Our First Met 🙂</h3>
+                                        <p class="text-sm text-text-muted">November 3, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_3.jpg"
+                                                    alt="Memory 3" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "Hello there, glad to see you!"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 4 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">First Treat From You</h3>
+                                        <p class="text-sm text-text-muted">November 13, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_4.jpg"
+                                                    alt="Memory 4" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "The lovely breakfast you made after the night we spent together (The night that you were scared because of that unfortunate event you'd heard about, and I offered to stay with you e_e)"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 5 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-pink">First Drink from You</h3>
+                                        <p class="text-sm text-text-muted">November 22, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_5.jpg"
+                                                    alt="Memory 3" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "Not bad! I kind of like your Rum wine more 🥳"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 6 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">Our Very First Pic Together!</h3>
+                                        <p class="text-sm text-text-muted">December 10, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_6.jpg"
+                                                    alt="Memory 4" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "Thanks to N'Porpla ka"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 7 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-pink">Our First Day as a Couple :-)</h3>
+                                        <p class="text-sm text-text-muted">December 15, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_7.jpg"
+                                                    alt="Memory 3" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "From today, onwards 💞"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 8 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">First Time Visiting Kind-of Museum</h3>
+                                        <p class="text-sm text-text-muted">December 22, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_8.jpg"
+                                                    alt="Memory 4" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "Act art smart dog at BACC"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 9 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-pink">CNX x X'Mas</h3>
+                                        <p class="text-sm text-text-muted">December 25, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_9.jpg"
+                                                    alt="Memory 3" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "You are the best gift I've ever had"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 10 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">Last Day of 2024</h3>
+                                        <p class="text-sm text-text-muted">December 31, 2024</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_10.jpg"
+                                                    alt="Memory 4" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "Look forward to spending another year (and many more years) with you"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 11 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-end">
+                                <div class="w-full sm:w-1/2 sm:ml-12">
+                                    <div class="mb-4 sm:text-left pl-5">
+                                        <h3 class="text-xl font-bold text-accent-pink">Rama VIII Bridge</h3>
+                                        <p class="text-sm text-text-muted">January 5, 2025</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_11.jpg"
+                                                    alt="Memory 3" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
+                                                <p class="text-lg font-light leading-relaxed">
+                                                    "After our walk in Lumini Park, we decided not to go home yet and went to Rama VIII Bridge so we could stay a little longer together"
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Timeline Item 12 -->
+                        <div class="timeline-item relative mb-24 group">
+                            <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
+                            <div class="flex sm:justify-start">
+                                <div class="w-full sm:w-1/2 sm:mr-12">
+                                    <div class="mb-4 sm:text-right pr-2">
+                                        <h3 class="text-xl font-bold text-accent-pink">First Time Bouldering 🧗🏼</h3>
+                                        <p class="text-sm text-text-muted">January 19, 2025</p>
+                                    </div>
+                                    <div class="mini-flip-container">
+                                        <div class="mini-flip-inner">
+                                            <!-- Front: Image -->
+                                            <div class="mini-flip-front mini-flip-trigger overflow-hidden">
+                                                <img src="assets/mm_1y_12.jpg"
+                                                    alt="Memory 4" class="timeline-image"
+                                                >
+                                                <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
+                                                    ↻
+                                                </div>
+                                            </div>
+                                            <!-- Back: Text -->
+                                            <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
+                                                <p class="text-lg font-light leading-relaxed text-white">
+                                                    "Not as bad as it should be because you were there 🙂 Thank you for introducing me this activity. And you know what, I am now a gym member!"
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">First Incident!</h3>
-                                    <p class="text-sm text-text-muted">October 25, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_2.jpg"
-                                                alt="Memory 2" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "There was a chat outage on CMB, and it made me really nervous. I didn't want you to think I wasn't interested in you, because I really still am!"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 3 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-pink">Our First Met 🙂</h3>
-                                    <p class="text-sm text-text-muted">November 3, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_3.jpg"
-                                                alt="Memory 3" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "Hello there, glad to see you!"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 4 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">First Treat From You</h3>
-                                    <p class="text-sm text-text-muted">November 13, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_4.jpg"
-                                                alt="Memory 4" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "The lovely breakfast you made after the night we spent together (The night that you were scared because of that unfortunate event you'd heard about, and I offered to stay with you e_e)"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 5 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-pink">First Drink from You</h3>
-                                    <p class="text-sm text-text-muted">November 22, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_5.jpg"
-                                                alt="Memory 3" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "Not bad! I kind of like your Rum wine more 🥳"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 6 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">Our Very First Pic Together!</h3>
-                                    <p class="text-sm text-text-muted">December 10, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_6.jpg"
-                                                alt="Memory 4" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "Thanks to N'Porpla ka"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 7 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-pink">Our First Day as a Couple :-)</h3>
-                                    <p class="text-sm text-text-muted">December 15, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_7.jpg"
-                                                alt="Memory 3" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "From today, onwards 💞"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 8 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">First Time Visiting Kind-of Museum</h3>
-                                    <p class="text-sm text-text-muted">December 22, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_8.jpg"
-                                                alt="Memory 4" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "Act art smart dog at BACC"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 9 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-pink">CNX x X'Mas</h3>
-                                    <p class="text-sm text-text-muted">December 25, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_9.jpg"
-                                                alt="Memory 3" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "You are the best gift I've ever had"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 10 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">Last Day of 2024</h3>
-                                    <p class="text-sm text-text-muted">December 31, 2024</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_10.jpg"
-                                                alt="Memory 4" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "Look forward to spending another year (and many more years) with you"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 11 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-end">
-                            <div class="w-full sm:w-1/2 sm:ml-12">
-                                <div class="mb-4 sm:text-left pl-5">
-                                    <h3 class="text-xl font-bold text-accent-pink">Rama VIII Bridge</h3>
-                                    <p class="text-sm text-text-muted">January 5, 2025</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_11.jpg"
-                                                alt="Memory 3" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-dark-card border-accent-red">
-                                            <p class="text-lg font-light leading-relaxed">
-                                                "After our walk in Lumini Park, we decided not to go home yet and went to Rama VIII Bridge so we could stay a little longer together"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Timeline Item 12 -->
-                    <div class="timeline-item relative mb-24 group">
-                        <div class="timeline-dot top-0 group-hover:bg-accent-pink transition-colors"></div>
-                        <div class="flex sm:justify-start">
-                            <div class="w-full sm:w-1/2 sm:mr-12">
-                                <div class="mb-4 sm:text-right pr-2">
-                                    <h3 class="text-xl font-bold text-accent-pink">First Time Bouldering 🧗🏼</h3>
-                                    <p class="text-sm text-text-muted">January 19, 2025</p>
-                                </div>
-                                <div class="mini-flip-container">
-                                    <div class="mini-flip-inner">
-                                        <!-- Front: Image -->
-                                        <div class="mini-flip-front mini-flip-trigger overflow-hidden">
-                                            <img src="assets/mm_1y_12.jpg"
-                                                alt="Memory 4" class="timeline-image"
-                                            >
-                                            <div class="absolute bottom-4 bg-black/60 px-4 py-1 rounded-full text-xs text-white backdrop-blur-sm">
-                                                ↻
-                                            </div>
-                                        </div>
-                                        <!-- Back: Text -->
-                                        <div class="mini-flip-back mini-flip-trigger bg-accent-red border-none">
-                                            <p class="text-lg font-light leading-relaxed text-white">
-                                                "Not as bad as it should be because you were there 🙂 Thank you for introducing me this activity. And you know what, I am now a gym member!"
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 </div>
 
 
@@ -986,30 +993,30 @@
 
 
 
-        function setTimelineHeight() {
-            const wrapper = document.getElementById('timelineWrapper');
-            const items = wrapper.querySelectorAll('.timeline-item');
+            function setTimelineHeight() {
+                const wrapper = document.getElementById('timelineWrapper');
+                const items = wrapper.querySelectorAll('.timeline-item');
 
-            let totalHeight = 0;
-            items.forEach(item => {
-            const style = window.getComputedStyle(item);
-            const marginTop = parseFloat(style.marginTop) || 0;
-            const marginBottom = parseFloat(style.marginBottom) || 0;
-            totalHeight += item.offsetHeight + marginTop + marginBottom;
-            });
+                let totalHeight = 0;
+                items.forEach(item => {
+                const style = window.getComputedStyle(item);
+                const marginTop = parseFloat(style.marginTop) || 0;
+                const marginBottom = parseFloat(style.marginBottom) || 0;
+                totalHeight += item.offsetHeight + marginTop + marginBottom;
+                });
 
-            // Optional: add some extra padding
-            const extra = 16; // px
-            const finalHeight = totalHeight + extra;
+                // Optional: add some extra padding
+                const extra = 16; // px
+                const finalHeight = totalHeight + extra;
 
-            // You may want to cap it to viewport:
-            const maxHeight = window.innerHeight * 0.7; // 70vh
+                // You may want to cap it to viewport:
+                const maxHeight = window.innerHeight * 0.7; // 70vh
 
-            wrapper.style.height = Math.min(finalHeight, maxHeight) + 'px';
-        }
+                wrapper.style.height = Math.min(finalHeight, maxHeight) + 'px';
+            }
 
-        // Run on load
-        window.addEventListener('load', setTimelineHeight);
+            // Run on load
+            window.addEventListener('load', setTimelineHeight);
 
 
 
