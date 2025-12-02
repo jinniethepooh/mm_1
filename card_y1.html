@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story Timeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for the entire page and font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark Theme: Very dark gray/black background */
+            scroll-behavior: smooth; /* Keep for general smooth scrolling */
+        }
+
+        /* --- Timeline Styling (Custom CSS for the line effect) --- */
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem; 
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            width: 2px;
+            height: 100%;
+            background-color: #60a5fa;
+            border-radius: 9999px;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-container {
+                padding-left: 0;
+            }
+            .timeline-container::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .timeline-item-marker {
+            position: absolute;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            background-color: #3b82f6;
+            border: 3px solid #111827;
+            border-radius: 50%;
+            z-index: 10;
+            left: 0.5rem;
+            transform: translateX(-50%);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-item-marker.align-right,
+            .timeline-item-marker.align-left {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* --- Standard Flip Card Styling (Timeline Section) --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 300px;
+            perspective: 1000px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            border-radius: 0.75rem;
+        }
+
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.75rem;
+            color: white;
+            overflow: hidden;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.75rem;
+        }
+
+        /* --- Mini Flip Card Styling (Gallery Section) --- */
+        .mini-flip-container {
+            height: 320px;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .mini-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .mini-flip-container.flipped .mini-flip-inner {
+            transform: rotateY(180deg);   /* Horizontal left↔right flip */
+        }
+
+        .mini-flip-front,
+        .mini-flip-back {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .mini-flip-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mini-flip-back {
+            transform: rotateY(180deg);   /* Back content stays reversed until flipped */
+            background-color: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(6px);
+        }
+
+        /* --- Front Page Styling --- */
+        #frontPage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111827;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            
+            transition: transform 1.0s ease-in-out, opacity 0.5s ease-out; 
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transform-origin: top;
+        }
+
+        #frontPage.flip-out {
+            transform: rotateX(-90deg);
+            opacity: 0;
+        }
+
+        /* --- Heart Animation CSS --- */
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: heart-pop 5s ease-out forwards;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+        }
+
+        @keyframes heart-pop {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(50vw - 50%) -500px) scale(1.5); /* Float up and fade out */
+            }
+        }
+
+
+        /* Custom Color Definitions (Used to support the accent colors in the dynamic cards) */
+        .text-secondary-pink { color: #f9a8d4; }
+        .text-text-muted { color: #9ca3af; }
+        .bg-dark-bg { background-color: #111827; }
+        .bg-dark-card { background-color: #1f2937; }
+        .text-accent-red { color: #f87171; }
+        .text-accent-green { color: #4ade80; }
+        .text-accent-yellow { color: #facc15; }
+        .border-accent-red { border-color: #f87171; }
+        .border-accent-green { border-color: #4ade80; }
+        .border-accent-yellow { border-color: #facc15; }
+
+
+    </style>
+</head>
+<body class="p-4 md:p-8 text-gray-200">
+
+    <div id="frontPage" class="front-page p-8 bg-gradient-to-br from-indigo-700 to-blue-800 text-white shadow-2xl">
+        <div class="space-y-6 max-w-sm mx-auto">
+            <h1 class="text-5xl font-extrabold tracking-tight">Happy Our 1st Anniversary!</h1>
+            <p class="text-xl font-light opacity-90">
+                To: 🐢 mookmook 🐢<br>
+                From: 🐶 your jinjin 🐶
+            </p>
+            <button id="openCardButton" class="px-8 py-3 mt-8 bg-gray-200 text-indigo-800 font-bold rounded-full shadow-xl transition transform hover:scale-105">
+                💖 Open Me 💖
+            </button>
+        </div>
+    </div>
+
+    <header class="text-center py-8 mb-8">
+        <h1 class="text-4xl font-extrabold text-white">Our Story</h1>
+        <p class="text-lg text-gray-400 mt-2">
+            A journey of our first year in pictures and memories
+        </p>
+    </header>
+
+    <div class="max-w-xl mx-auto">
+
+        <div id="timeline" class="timeline-container">
+            
+            <script>
+                // Data for the 10 timeline moments
+                const timelineData = [
+                    { title: "Our Beginning", date: "October 24, 2024", text: "Well, it took a fair bit of courage for me to match someone… and I'm glad I spent it on you. The one and only :-)", img: "assets/mm_1y_1.jpg" },
+                    { title: "First Incident!", date: "October 25, 2024", text: "There was a chat outage on CMB, and it made me really nervous. I didn't want you to think I wasn't interested in you, because I really still am!", img: "assets/mm_1y_2.jpg" },
+                    { title: "Our First Met 🙂", date: "November 3, 2024", text: "Hello there, glad to see you!", img: "assets/mm_1y_3.jpg" },
+                    { title: "First Treat From You", date: "November 13, 2024", text: "The lovely breakfast you made after the night we spent together (The night that you were scared because of that unfortunate event you'd heard about, and I offered to stay with you e_e)", img: "assets/mm_1y_4.jpg" },
+                    { title: "First Drink from You", date: "November 22, 2024", text: "Not bad! I kind of like your Rum wine more 🥳", img: "assets/mm_1y_5.jpg" },
+                    { title: "Our Very First Pic Together!", date: "December 10, 2024", text: "Thanks to N'Porpla ka", img: "assets/mm_1y_6.jpg" },
+                    { title: "Our First Day as a Couple :-)", date: "December 15, 2024", text: "From today, onwards 💞", img: "assets/mm_1y_7.jpg" },
+                    { title: "First Time Visiting Kind-of Museum", date: "December 22, 2024", text: "Act art smart dog at BACC", img: "assets/mm_1y_8.jpg" },
+                    { title: "CNX x X'Mas", date: "December 25, 2024", text: "You are the best gift I've ever had", img: "assets/mm_1y_9.jpg" },
+                    { title: "Last Day of 2024", date: "December 31, 2024", text: "Look forward to spending another year (and many more years) with you", img: "assets/mm_1y_10.jpg" },
+                ];
+
+                const timelineEl = document.getElementById('timeline');
+
+                timelineData.forEach((item, index) => {
+                    const isRightAligned = index % 2 === 0;
+                    
+                    let contentAlignmentClasses;
+                    let textAlignmentClass;
+                    let markerClass;
+                    let wrapperClasses;
+
+                    if (isRightAligned) {
+                        contentAlignmentClasses = "md:w-1/2 md:pl-10 md:pr-0";
+                        textAlignmentClass = "md:text-left";
+                        markerClass = "align-right";
+                        wrapperClasses = "md:justify-end";
+                    } else {
+                        contentAlignmentClasses = "md:w-1/2 md:pr-10 md:pl-0";
+                        textAlignmentClass = "md:text-right";
+                        markerClass = "align-left";
+                        wrapperClasses = "md:justify-start";
+                    }
+
+                    const html = `
+                        <div class="relative mb-8 pt-2 flex ${wrapperClasses} w-full">
+                            <div class="timeline-item-marker top-0 ${markerClass}"></div>
+
+                            <div class="w-full pl-10 ${contentAlignmentClasses} ${textAlignmentClass}">
+                                <div class="mb-4 pr-2">
+                                    <h3 class="text-sm font-bold text-blue-400">${item.title}</h3>
+                                    <p class="text-xs text-text-muted">${item.date}</p>
+                                </div>
+                                <div class="p-2 bg-gray-700 rounded-xl shadow-xl transform transition duration-300 hover:scale-[1.02]">
+                                    <div id="card-${index}" class="flip-card">
+                                        <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover rounded-lg">
+                                            </div>
+                                            <div class="flip-card-back p-4 bg-gradient-to-br from-blue-700 to-indigo-900">
+                                                <p class="text-base leading-relaxed">${item.text}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    timelineEl.insertAdjacentHTML('beforeend', html);
+                });
+            </script>
+        </div>
+
+
+        <div class="mb-32"></div>
+
+        <div class="w-full p-4 sm:p-6">
+            <div class="flex items-center justify-center">
+                <div class="text-center">
+                    <h3 class="font-display text-2xl sm:text-3xl text-secondary-pink font-bold">
+                        The Rest of Our First-Year Memories
+                    </h3>
+                </div>
+            </div>
+
+            <div class="text-center transition-colors group-hover:text-secondary-pink mb-8">
+                <p class="text-sm sm:text-base text-text-muted">
+                    Expand to see all the stories, surprises, and little moments.
+                </p>
+            </div>
+
+            <div
+                id="moreTimelineToggle"
+                class="flex flex-col items-center justify-center cursor-pointer group hover:opacity-80 transition-opacity space-y-3"
+            >
+
+                <div class="flex items-center justify-center shrink-0">
+                    <span
+                        id="moreTimelineIcon"
+                        class="transition-transform duration-300 text-secondary-pink text-3xl leading-none"
+                    >
+                        ↓
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Expandable Timeline Section -->
+        <div id="moreTimelineContent" class="relative overflow-hidden transition-all duration-700 ease-in-out">
+
+            <!-- Blur overlay when collapsed -->
+            <div id="timelineOverlay"
+                class="absolute inset-0 z-30 pointer-events-none opacity-100 transition-opacity duration-500 backdrop-blur-sm
+                    bg-gradient-to-b from-dark-bg/90 via-dark-bg/70 to-dark-bg/40"
+            >
+            </div>
+
+            <!-- Bottom fade (always visible) -->
+            <div class="absolute inset-x-0 bottom-0 h-32 z-20 pointer-events-none bg-gradient-to-t from-dark-bg via-dark-bg/70 to-transparent"></div>
+
+            <!-- Scrollable Gallery -->
+            <div id="miniFlipContainer" class="flex space-x-6 overflow-x-auto">
+
+                <script>
+                    const remainingGalleryData = [
+                        { id: 1, title: "First Trip Together", date: "November 18, 2024", text: "Caption 1", img: "assets/mm_1y_6.jpg", accent: "red" },
+                        { id: 2, title: "Our Cozy Stay-in Day", date: "January 2025", text: "Caption 2", img: "assets/mm_1y_7.jpg", accent: "green" },
+                        { id: 3, title: "A Little Surprise", date: "May 2025", text: "Caption 3", img: "assets/mm_1y_8.jpg", accent: "yellow" },
+                        { id: 4, title: "Rama VIII Bridge", date: "January 5, 2025", text: "Caption 4", img: "assets/mm_1y_11.jpg", accent: "blue" },
+                        { id: 5, title: "First Time Bouldering", date: "January 19, 2025", text: "Caption 5", img: "assets/mm_1y_12.jpg", accent: "indigo" },
+                    ];
+
+                    const accentMap = {
+                        red: 'border-accent-red text-accent-red',
+                        green: 'border-accent-green text-accent-green',
+                        yellow: 'border-accent-yellow text-accent-yellow',
+                        blue: 'border-blue-400 text-blue-400',
+                        indigo: 'border-indigo-400 text-indigo-400',
+                    };
+
+                    const container = document.getElementById('miniFlipContainer');
+                    const exp_content = document.getElementById('moreTimelineContent');
+                    const btn = document.getElementById('moreTimelineIcon');
+                    const overlay = document.getElementById('timelineOverlay');
+                    const heightRef = document.getElementById('heightReference');
+
+                    let isExpanded = false;
+
+                    // Set perfect collapsed height on load & resize
+                    function setCollapsedHeight() {
+                        if (!isExpanded) {
+                            exp_content.style.height = `${heightRef.offsetHeight}px`;
+                        }
+                    }
+
+                    // Initial setup
+                    window.addEventListener('load', () => {
+                        setCollapsedHeight();
+                        // Force reflow so transition works on first click
+                        exp_content.style.transition = 'none';
+                        exp_content.offsetHeight; // trigger reflow
+                        exp_content.style.transition = '';
+                    });
+
+                    window.addEventListener('resize', setCollapsedHeight);
+
+                    // Toggle
+                    btn.addEventListener('click', () => {
+                        isExpanded = !isExpanded;
+
+                        if (isExpanded) {
+                            overlay.style.opacity = '0';
+                            btn.textContent = '↑';
+                        } else {
+                            overlay.style.opacity = '1';
+                            btn.textContent = '↓';
+                        }
+                    });
+
+                    // Inject cards
+                    remainingGalleryData.forEach((item) => {
+                        const accentClasses = accentMap[item.accent] || 'border-secondary-pink text-secondary-pink';
+                        const [borderClass, textClass] = accentClasses.split(' ');
+
+                        const html = `
+                            <div class="mini-flip-container shrink-0 w-[280px] sm:w-[320px] snap-center">
+                                <div class="mini-flip-inner transition-transform duration-500 ease-in-out">
+                                    <div class="mini-flip-front">
+                                        <img src="${item.img}" alt="${item.title}">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5 flex flex-col justify-end">
+                                            <h3 class="text-xl font-bold text-white">${item.title}</h3>
+                                            <p class="text-sm text-secondary-pink/80">${item.date}</p>
+                                        </div>
+                                    </div>
+                                    <div class="mini-flip-back border-2 ${borderClass} p-6 flex flex-col items-center justify-center text-center">
+                                        <h3 class="text-xl font-bold ${textClass} mb-4">${item.title}</h3>
+                                        <p class="text-base leading-relaxed text-gray-300">${item.text}</p>
+                                        <p class="text-sm text-text-muted mt-5">${item.date}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', html);
+                    });
+
+                </script>
+            </div>
+        </div>
+
+
+        <div class="py-48">
+
+            <div class="text-center my-64 max-w-sm mx-auto px-4">
+                <h3 class="text-3xl font-bold text-gray-300 mb-4">A Secret Message Just For You</h3>
+                <p class="text-lg text-gray-400 leading-relaxed">
+                    Every shared laugh, every late-night talk, and every challenge we faced together has created something truly unbreakable. This card is just a snapshot; the real masterpiece is the future we're building.
+                </p>
+                <p class="mt-4 text-sm font-light text-gray-500 italic">
+                    Keep scrolling... there's one last surprise.
+                </p>
+            </div>
+            
+            <div class="flex flex-col justify-center items-center text-center pt-32 pb-32">
+                <div class="relative w-full max-w-sm mx-auto h-96 rounded-2xl shadow-2xl overflow-hidden transform hover:scale-[1.03] transition duration-500">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/70 to-transparent">
+                        <p class="text-sm font-medium text-yellow-300 mb-2">The Final Moment</p>
+                        <h3 class="text-4xl font-extrabold text-white leading-tight">Always & Forever.</h3>
+                        <p class="mt-2 text-base text-gray-200">The journey continues, one amazing step at a time.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+
+        // Function to set up the nested flip card interactions
+        function setupMiniFlipCards() {
+            document.querySelectorAll('.mini-flip-container').forEach(card => {
+                if (card.dataset.ready) return;
+
+                let touched = false;
+
+                card.addEventListener('touchstart', e => {
+                    touched = true;
+                    e.preventDefault();
+                    card.classList.toggle('flipped');
+                }, { passive: false });
+
+                card.addEventListener('click', () => {
+                    if (touched) { touched = false; return; }
+                    card.classList.toggle('flipped');
+                });
+
+                card.dataset.ready = "true";
+            });
+        }
+
+
+
+        // --- Generic Flip Card Logic (Timeline Section) ---
+        function flipCard(cardElement) {
+            cardElement.classList.toggle('is-flipped');
+        }
+
+
+        // --- Front Page Logic & Main Initialization ---
+        const frontPage = document.getElementById('frontPage');
+        const openButton = document.getElementById('openCardButton');
+
+        function openCard(event) {
+            event.preventDefault();
+            
+            if (frontPage) {
+                frontPage.classList.add('flip-out');
+
+                frontPage.removeEventListener('click', openCard);
+                frontPage.removeEventListener('touchstart', openCard);
+                openButton.removeEventListener('click', openCard);
+
+                setTimeout(() => {
+                    frontPage.remove();
+                }, 1000);
+
+                if (openButton) {
+                    openButton.disabled = true;
+                }
+
+                document.body.classList.remove('items-center');
+                document.body.classList.add('items-start');
+                document.body.classList.add('timeline-active');
+
+                setupMiniFlipCards();
+            }
+        }
+
+
+        if (frontPage) {
+            frontPage.addEventListener('click', openCard);
+            frontPage.addEventListener('touchstart', openCard);
+            openButton.addEventListener('click', openCard);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.flip-card');
+
+            cards.forEach(card => {
+                let touched = false;
+
+                card.addEventListener('touchstart', (e) => {
+                    touched = true;
+                    e.preventDefault();
+                    flipCard(card);
+                }, { passive: false });
+
+                card.addEventListener('click', () => {
+                    if (touched) {
+                        // Ignore the click that follows a touch
+                        touched = false;
+                        return;
+                    }
+                    flipCard(card);
+                });
+            });
+
+            setupMiniFlipCards();
+        });
+
+
+
+    </script>
+</body>
+</html>
